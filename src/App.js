@@ -8,7 +8,8 @@ class App extends Component {
       { name: "David", age: 37 },
       { name: "Haley", age: 30 },
       { name: "Chloe", age: 1 }
-    ]
+    ],
+    showPersons: false
   }
 
   switchNameHandler = (newName1, newName2, newName3) => {
@@ -28,6 +29,12 @@ class App extends Component {
     ]
   })};
 
+  togglePersonsHandler = () => {
+    this.setState(
+      {showPersons: !this.state.showPersons}
+    )
+  }
+ 
   render() {
     const style = {
       backgroundColor: 'white',
@@ -42,23 +49,28 @@ class App extends Component {
         <h1>Hi, I am a react App</h1>
         <button 
           style= {style}
-          onClick={ () =>  this.switchNameHandler("Big Dady Dave", "Big Mommy Haley", "ChloeBean") }>Switch Name</button>
-        <Person
-          age={this.state.persons[0].age}
-          name={this.state.persons[0].name}
-          > I like beer 
-        </Person>
-        <Person 
-          age={this.state.persons[1].age}
-          name={this.state.persons[1].name}
-          click={this.switchNameHandler.bind(this, "David", "Big Mommy Haley", "Chloe")}
-          > I like wine 
-        </Person>
-        <Person 
-          age={this.state.persons[2].age}
-          name={this.state.persons[2].name}
-          changed={this.nameChangedHandler}> I like milk
-        </Person>
+          onClick={ this.togglePersonsHandler }>Toggle Persons </button>
+        {
+          this.state.showPersons ?
+            <div >
+              <Person
+                age={this.state.persons[0].age}
+                name={this.state.persons[0].name}
+                > I like beer 
+              </Person>
+              <Person 
+                age={this.state.persons[1].age}
+                name={this.state.persons[1].name}
+                click={this.switchNameHandler.bind(this, "David", "Big Mommy Haley", "Chloe")}
+                > I like wine 
+              </Person>
+              <Person 
+                age={this.state.persons[2].age}
+                name={this.state.persons[2].name}
+                changed={this.nameChangedHandler}> I like milk
+              </Person>
+            </div> : null
+        }
       </div>
     );
     // return React.createElement('div', null, React.createElement('h1', {className: 'App'},  'Hi, I\'m a react App!!!'));
